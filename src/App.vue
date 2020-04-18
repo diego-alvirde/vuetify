@@ -5,53 +5,31 @@
         Vuetify Dashboard
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text rounded>Home</v-btn>
-      <v-btn text rounded>Login</v-btn>
+      <v-btn
+        v-for="link in links"
+        text
+        rounded
+        :to="link.url"
+        :key="`${link.label}`"
+      >
+        {{ link.label }}
+      </v-btn>
     </v-app-bar>
     <v-content>
-      <!--Login Module-->
-      <v-card width="400" class="mx-auto mt-5">
-        <v-card-title>
-          <h1 class="display-1">Login</h1>
-        </v-card-title>
-        <v-card-text>
-          <v-form>
-            <v-text-field
-              prepend-icon="mdi-account-circle"
-              name="username"
-              label="Username"
-              id="username"
-            ></v-text-field>
-            <v-text-field
-              prepend-icon="mdi-lock"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              name="password"
-              label="Password"
-              id="password"
-              :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
-            ></v-text-field>
-          </v-form>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn color="primary">Register</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="success">Login</v-btn>
-        </v-card-actions>
-      </v-card>
+      <router-view></router-view>
     </v-content>
     <v-footer color="primary lighten-1" padless>
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in links"
-          :key="link"
+          :key="`${link.label}`"
           color="white"
           text
           rounded
           class="my-2"
+          :to="link.url"
         >
-          {{ link }}
+          {{ link.label }}
         </v-btn>
         <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
           {{ new Date().getFullYear() }} — <strong>Vuetify Dashboard</strong>
@@ -68,8 +46,20 @@ export default {
   components: {},
 
   data: () => ({
-    showPassword: false,
-    links: ["Home", "Login"],
+    links: [
+      {
+        label: "Home",
+        url: "/",
+      },
+      {
+        label: "Login",
+        url: "/login",
+      },
+      {
+        label: "Dashboard",
+        url: "/dashboard",
+      },
+    ],
   }),
 };
 </script>
