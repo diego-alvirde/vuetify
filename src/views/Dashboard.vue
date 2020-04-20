@@ -1,26 +1,41 @@
 <template>
-  <div>
+  <v-container>
     <h1>Dashboard</h1>
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      :items-per-page="5"
-      class="elevation-1"
-      @click:row="selectRow"
-    ></v-data-table>
-    <v-snackbar v-model="snackbar">
-      You have selected {{ currentItem }}
-      <v-btn color="pink" text @click="snackbar = false">
-        Close
-      </v-btn>
-    </v-snackbar>
-  </div>
+    <v-row>
+      <v-col v-for="sale in sales" :key="`${sale.title}`">
+        <SalesGraph :sale="sale" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="8">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+          @click:row="selectRow"
+        ></v-data-table>
+        <v-snackbar v-model="snackbar">
+          You have selected {{ currentItem }}
+          <v-btn color="pink" text @click="snackbar = false">
+            Close
+          </v-btn>
+        </v-snackbar>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
+import SalesGraph from "../components/SalesGraph";
+import salesData from "../data/sales.json";
 export default {
+  components: {
+    SalesGraph,
+  },
   data() {
     return {
       currentItem: "",
+      sales: salesData,
       snackbar: false,
       headers: [
         {
