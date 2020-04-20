@@ -2,12 +2,18 @@
   <v-container>
     <h1>Dashboard</h1>
     <v-row>
-      <v-col v-for="sale in sales" :key="`${sale.title}`">
+      <v-col
+        cols="12"
+        md="4"
+        xs="12"
+        v-for="sale in sales"
+        :key="`${sale.title}`"
+      >
         <SalesGraph :sale="sale" />
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12" md="8" xs="12">
         <v-data-table
           :headers="headers"
           :items="desserts"
@@ -15,7 +21,7 @@
           class="elevation-1"
           @click:row="selectRow"
         ></v-data-table>
-        <v-snackbar v-model="snackbar">
+        <v-snackbar v-model="snackbar" :left="$vuetify.breakpoint.lgAndUp">
           You have selected {{ currentItem }}
           <v-btn color="pink" text @click="snackbar = false">
             Close
