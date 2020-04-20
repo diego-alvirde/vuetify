@@ -14,6 +14,7 @@
       >
         {{ link.label }}
       </v-btn>
+      <v-btn @click="toggleTheme" text rounded>Toggle Theme</v-btn>
     </v-app-bar>
     <v-content>
       <router-view></router-view>
@@ -65,5 +66,10 @@ export default {
       },
     ],
   }),
+  methods: {
+    toggleTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+  },
 };
 </script>
